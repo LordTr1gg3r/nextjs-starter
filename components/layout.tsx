@@ -74,7 +74,7 @@ export default function Layout({
       <header className={styles.header}>
         {home ? (
           <>
-            <h1 className={utilStyles.heading2Xl}>{name}</h1>
+            <h1 className={utilStyles.headingLg}>{name}</h1>
             <Image
               priority
               src={profilePicture}
