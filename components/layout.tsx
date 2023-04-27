@@ -4,8 +4,44 @@ import styles from './layout.module.css'
 import utilStyles from '../styles/utils.module.css'
 import Link from 'next/link'
 import profilePicture from '../images/profile.jpg'
+import NavBar from './AppBar'
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Swiper from '../components/swiper'
+
 const name = 'Simon Thow'
 export const siteTitle = 'Next.js Sample Website'
+
+declare module '@mui/material/styles' {
+  interface Theme {
+    status: {
+      danger: string;
+    };
+  }
+  // allow configuration using `createTheme`
+  interface ThemeOptions {
+    status?: {
+      danger?: string;
+    };
+  }
+}
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      light: '#757ce8',
+      main: '#ffffff',
+      dark: '#002884',
+      contrastText: '#000',
+    },
+    secondary: {
+      light: '#ff7961',
+      main: '#000',
+      dark: '#ba000d',
+      contrastText: '#000',
+    },
+  },
+});
+
 
 export default function Layout({
   children,
@@ -15,7 +51,10 @@ export default function Layout({
   home?: boolean
 }) {
   return (
-    <div className={styles.container}>
+    <div>
+      <ThemeProvider theme={theme}>
+        <NavBar />
+      </ThemeProvider>
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta
@@ -31,9 +70,11 @@ export default function Layout({
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
+      <div>
       <header className={styles.header}>
         {home ? (
           <>
+            <h1 className={utilStyles.heading2Xl}>{name}</h1>
             <Image
               priority
               src={profilePicture}
@@ -42,7 +83,7 @@ export default function Layout({
               width={144}
               alt={name}
             />
-            <h1 className={utilStyles.heading2Xl}>{name}</h1>
+              <p className='m-10'>Insert Tag line Here </p>
           </>
         ) : (
           <>
@@ -70,6 +111,7 @@ export default function Layout({
           <Link href="/">← Back to home</Link>
         </div>
       )}
+    </div>
     </div>
   )
 }
