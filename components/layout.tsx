@@ -11,7 +11,6 @@ import theme from '../theme/theme'
 import Copyright from './Copywright'
 import HeroBanner from './Banner'
 import NavBarHome from './navbar/NavBarHome'
-import PortfolioContent from './portfolio/content'
 
 const name = 'Simon Thow'
 export const siteTitle = 'Next.js Sample Website'
