@@ -12,3 +12,11 @@
   .backToHome {
     margin: 3rem 0 0;
   }
+
+  .footer{
+    position:absolute;
+    bottom:0;
+    display:block;  
+    width:100%
+    
+}

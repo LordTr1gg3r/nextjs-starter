@@ -4,9 +4,14 @@ import styles from './layout.module.css'
 import utilStyles from '../styles/utils.module.css'
 import Link from 'next/link'
 import profilePicture from '../images/profile.jpg'
-import NavBar from './AppBar'
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Swiper from '../components/swiper'
+import NavBar from './navbar/NavBar'
+import CssBaseline from '@mui/material/CssBaseline';
+import { ThemeProvider } from '@mui/material/styles';
+import theme from '../theme/theme'
+import Copyright from './Copywright'
+import HeroBanner from './Banner'
+import NavBarHome from './navbar/NavBarHome'
+import PortfolioContent from './portfolio/content'
 
 const name = 'Simon Thow'
 export const siteTitle = 'Next.js Sample Website'
@@ -25,36 +30,20 @@ declare module '@mui/material/styles' {
   }
 }
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      light: '#757ce8',
-      main: '#ffffff',
-      dark: '#002884',
-      contrastText: '#000',
-    },
-    secondary: {
-      light: '#ff7961',
-      main: '#000',
-      dark: '#ba000d',
-      contrastText: '#000',
-    },
-  },
-});
-
 
 export default function Layout({
   children,
-  home
+  home,
+  portfolio
 }: {
   children: React.ReactNode
   home?: boolean
+  portfolio?: boolean
+
 }) {
   return (
-    <div>
-      <ThemeProvider theme={theme}>
-        <NavBar />
-      </ThemeProvider>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta
@@ -70,48 +59,24 @@ export default function Layout({
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-      <div>
-      <header className={styles.header}>
+      <>
         {home ? (
           <>
-            <h1 className={utilStyles.headingLg}>{name}</h1>
-            <Image
-              priority
-              src={profilePicture}
-              className={utilStyles.borderCircle}
-              height={144}
-              width={144}
-              alt={name}
-            />
-              <p className='m-10'>Insert Tag line Here </p>
+            <NavBarHome />
+            <HeroBanner />
+            <Copyright />
           </>
         ) : (
           <>
-            <Link href="/">
-              <Image
-                priority
-                src={profilePicture}
-                className={utilStyles.borderCircle}
-                height={108}
-                width={108}
-                alt={name}
-              />
-            </Link>
-            <h2 className={utilStyles.headingLg}>
-              <Link href="/" className={utilStyles.colorInherit}>
-                {name}
-              </Link>
-            </h2>
+            <NavBar />
+            <main>{children}</main>
+            <footer className={styles.footer}><Copyright /></footer>
+            
           </>
-        )}
-      </header>
-      <main>{children}</main>
-      {!home && (
-        <div className={styles.backToHome}>
-          <Link href="/">← Back to home</Link>
-        </div>
-      )}
-    </div>
-    </div>
+        )
+        }
+
+      </>
+    </ThemeProvider>
   )
 }

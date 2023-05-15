@@ -1,6 +1,6 @@
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities; */ */
 
 html,
 body {
@@ -28,4 +28,7 @@ a:hover {
 img {
   max-width: 100%;
   display: block;
+}
+.cvBtn{
+  background-color: lavender;
 }
